@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --bg-base: #070d19;
+    --bg-surface: #0c1424;
+    --bg-card: #0d1627;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-active: rgba(6, 182, 212, 0.45);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-cyan: #06b6d4;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+  }
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #070d19; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+/* Custom Light Scrollbar for Sidebar */
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-track { background: #f8fafc; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.sidebar-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ─── Glass / Surface Utilities ────────────────────────── */
+.glass-panel {
+  background: rgba(13, 22, 39, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-card {
+  background: #0d1627;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 20px -2px rgba(0, 0, 0, 0.4),
+    0 2px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 8px 30px -4px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(6, 182, 212, 0.12);
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  background: #0d1627;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow:
+    0 4px 20px -2px rgba(0, 0, 0, 0.4),
+    0 2px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top right, var(--card-accent-color, rgba(6,182,212,0.06)) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 12px 32px -6px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(6, 182, 212, 0.15);
+}
+
+/* ─── Skeleton Loader ───────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #0d1627 25%, #1e293b 50%, #0d1627 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 0.5rem;
+}
+
+/* ─── Fade-in / Slide-up Animations ────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in   { animation: fadeIn 0.4s ease forwards; }
+.animate-slide-up  { animation: slideUp 0.4s ease forwards; }
+.animate-scale-in  { animation: scaleIn 0.35s ease forwards; }
+.animate-count-up  { animation: countUp 0.5s ease forwards; }
+
+/* Staggered children delay */
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; opacity: 0; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.10s; opacity: 0; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; opacity: 0; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.20s; opacity: 0; }
+
+/* ─── Progress Bar ──────────────────────────────────────── */
+.progress-bar {
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #1e293b;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Activity Timeline ─────────────────────────────────── */
+.activity-timeline {
+  position: relative;
+}
+
+.activity-timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 1.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(to bottom, #1e293b, transparent);
+}
+
+/* ─── Donut Chart Container ─────────────────────────────── */
+.donut-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* ─── Glow Utilities ────────────────────────────────────── */
+.glow-cyan    { box-shadow: 0 0 20px -4px rgba(6,182,212,0.35); }
+.glow-emerald { box-shadow: 0 0 20px -4px rgba(16,185,129,0.35); }
+.glow-amber   { box-shadow: 0 0 20px -4px rgba(245,158,11,0.35); }
+.glow-rose    { box-shadow: 0 0 20px -4px rgba(244,63,94,0.35); }
+
+/* ─── Table Styles ──────────────────────────────────────── */
+.nexora-table th {
+  background-color: rgba(13, 22, 39, 0.9);
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nexora-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+}
+
+.nexora-table tr:hover td {
+  background-color: rgba(30, 41, 59, 0.35);
+}
+
+/* ─── Chart tooltip override ────────────────────────────── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  border-radius: 12px !important;
+  background-color: #0d1520 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ─── Input / Button focus ring ─────────────────────────── */
+.nexora-input {
+  background: #090e1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  font-size: 0.8125rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.nexora-input:focus {
+  outline: none;
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+}
+
+/* ─── Period Filter Pills ───────────────────────────────── */
+.period-pill {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.period-pill.active {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: #38bdf8;
+}
+
+.period-pill:not(.active) {
+  color: #64748b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.period-pill:not(.active):hover {
+  color: #94a3b8;
+  border-color: rgba(255, 255, 255, 0.15);
+}

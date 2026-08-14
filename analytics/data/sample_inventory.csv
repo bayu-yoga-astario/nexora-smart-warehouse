@@ -1,0 +1,5 @@
+sku,name,category,stock,min_stock,unit_cost,last_transaction_date
+SKU-ELE-001,Smart Sensor Hub,Electronics,12,15,450000,2026-08-10
+SKU-RAW-002,Aluminum Alloy Sheet,Raw Materials,45,50,120000,2026-08-12
+SKU-FG-003,Industrial Terminal Box,Finished Goods,85,20,850000,2026-08-11
+SKU-OLD-999,Legacy Cable Harness,Electronics,250,10,50000,2026-04-01
